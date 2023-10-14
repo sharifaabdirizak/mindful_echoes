@@ -20,15 +20,15 @@ function JournalSettings() {
         //   onChange={handleChange}
           label="Affirmation Categories"
         >
-          <MenuItem value={10}>Confidence</MenuItem>
-          <MenuItem value={30}>Self-Esteem</MenuItem>
-          <MenuItem value={20}>Love</MenuItem>
-          <MenuItem value={30}>Graditude</MenuItem>
-          <MenuItem value={30}>Health</MenuItem>
-          <MenuItem value={30}>Exercise</MenuItem>
-          <MenuItem value={30}>Forgiveness</MenuItem>
-          <MenuItem value={30}>Relationship</MenuItem>
-          <MenuItem value={30}>Attitude</MenuItem>
+          <MenuItem >Confidence</MenuItem>
+          <MenuItem >Self-Esteem</MenuItem>
+          <MenuItem >Love</MenuItem>
+          <MenuItem >Graditude</MenuItem>
+          <MenuItem >Health</MenuItem>
+          <MenuItem >Exercise</MenuItem>
+          <MenuItem >Forgiveness</MenuItem>
+          <MenuItem >Relationship</MenuItem>
+          <MenuItem >Attitude</MenuItem>
         </Select>
       </FormControl>
 
@@ -41,9 +41,9 @@ function JournalSettings() {
         //   onChange={handleChange}
           label="Journal Time"
         >
-          <MenuItem value={10}>1 minute </MenuItem>
-          <MenuItem value={30}>5 minutes</MenuItem>
-          <MenuItem value={20}>10 minutes </MenuItem>   
+          <MenuItem >1 minute </MenuItem>
+          <MenuItem >5 minutes</MenuItem>
+          <MenuItem >10 minutes </MenuItem>   
         </Select>
       </FormControl>
       <Button variant="contained" 

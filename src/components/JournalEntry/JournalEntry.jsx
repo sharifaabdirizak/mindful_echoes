@@ -1,10 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DemoContainer } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function JournalEntry() {
     const history = useHistory();
@@ -13,9 +14,9 @@ function JournalEntry() {
     return (
         <>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
+                {/* <DemoContainer components={['DatePicker']}> */}
                     <DatePicker label="Basic date picker" />
-                </DemoContainer>
+                {/* </DemoContainer> */}
             </LocalizationProvider>
 
             <TextField
@@ -25,6 +26,13 @@ function JournalEntry() {
             rows={4}
             placeholder="Start here"
             />
+
+            <Button variant="contained" 
+                onClick={() => {
+                history.push('/previousEntries');
+            }}>
+                Next
+            </Button>
         
         </>
     )
