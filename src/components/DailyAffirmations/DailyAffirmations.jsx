@@ -7,7 +7,7 @@ function DailyAffirmations() {
 //created daily affirmation quotes/prompts.
     return (
         <>
-        <h1>daily affirmations</h1>
+        <h1>Daily affirmations</h1>
         <h2 onClick={() => {
             history.push('/journalSettings');
           }}> I am allowed to feel good.</h2>
