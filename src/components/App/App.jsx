@@ -19,7 +19,11 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import WelcomeDashboard from '../WelcomeDashboard';
+import WelcomeDashboard from '../WelcomeDashboard/WelcomeDashboard';
+import DailyAffirmations from '../DailyAffirmations/DailyAffirmations';
+import JournalSettings from '../JournalSettings/JournalSettings';
+import PreviousEntries from '../PreviousEntries/PreviousEntries';
+import JournalEntry from '../JournalEntry/JournalEntry';
 
 import './App.css';
 
@@ -77,6 +81,33 @@ function App() {
             <WelcomeDashboard />
           </ProtectedRoute>
 
+          <ProtectedRoute
+            exact
+            path="/dailyAffirmations"
+          >
+            <DailyAffirmations />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          exact
+          path="/journalSettings"
+          >
+            <JournalSettings />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/JournalEntry"
+          >
+            <JournalEntry />
+            </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/PreviousEntries"
+          >
+            <PreviousEntries />
+          </ProtectedRoute>
           <Route
             exact
             path="/login"
