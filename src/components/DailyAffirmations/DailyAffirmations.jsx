@@ -1,31 +1,76 @@
 import React from "react"; 
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 
 function DailyAffirmations() {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+
+
+    const startEntry = (event) => {
+        event.preventDefault();
+        // console.log(event.target.value)
+        dispatch({
+            type:'SAGA/startEntry',
+            payload: event.target.value
+        })
+        history.push('/journalSettings')
+    }
 
 //created daily affirmation quotes/prompts.
     return (
         <>
         <h1>Daily affirmations</h1>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I am allowed to feel good.</h2>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I am growing and I am going at my own pace</h2>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I can be soft in my heart and firm in my boundaries.</h2>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I am open to healing.</h2>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I am responsible for myself, and I start there</h2>
-        <h2 onClick={() => {
-            history.push('/journalSettings');
-          }}> I deserve self respect and a clean space.</h2>
+
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I am allowed to feel good.'} 
+            varient="text"
+        >
+            I am allowed to feel good.
+        </Button>
+
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I am growing and I am going at my own pace.'} 
+            varient="text"
+        >
+            I am growing and I am going at my own pace.
+        </Button>
+
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I can be soft in my heart and firm in my boundaries.'} 
+            varient="text"
+        >
+            I can be soft in my heart and firm in my boundaries.
+        </Button>
+        
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I am open to healing.'} 
+            varient="text"
+        >
+            I am open to healing.
+        </Button>
+
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I am responsible for myself, and I start there.'} 
+            varient="text"
+        >
+            I am responsible for myself, and I start there.
+        </Button>
+
+        <Button 
+            onClick={(event) => {startEntry(event)}} 
+            value={'I deserve self respect and a clean space.'} 
+            varient="text"
+        >
+            I deserve self respect and a clean space.
+        </Button>
 
         </>
     )
