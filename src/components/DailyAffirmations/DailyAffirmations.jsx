@@ -1,18 +1,22 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 
 function DailyAffirmations() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const user = useSelector(store => store.user)
+
   const startEntry = (event) => {
     event.preventDefault();
     // console.log(event.target.value)
     dispatch({
       type: "SAGA/startEntry",
-      payload: event.target.value,
+      payload: {
+        daily_affirmation: event.target.value, 
+        user_id: user.id}
     });
     history.push("/journalSettings");
   };
