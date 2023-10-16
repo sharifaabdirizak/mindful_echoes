@@ -38,16 +38,17 @@ function* fetchPreviousEntries() {
   try {
     const previous_entries = yield axios({
       method: "GET",
-      url: "/api/journal_entries",
+      url: `/api/journal_entries`,
     });
     yield put({
       type: "SET_PREVIOUS_ENTRIES",
-      payload: response.data,
+      payload: previous_entries.data,
     });
   } catch (error) {
     console.log("error in fetchPreviousEntries", error);
   }
 }
+
 
 function* addJournalEntrySaga() {
   yield takeEvery("SAGA/startEntry", addJournalEntry);

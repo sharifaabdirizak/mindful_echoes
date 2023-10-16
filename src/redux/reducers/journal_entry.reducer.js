@@ -17,3 +17,4 @@ const previous_entries = ( state = [], action) => {
 }
 
 export default journal_entries
+

@@ -30,6 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   const sqlValue = [currentUser]
   pool.query(sqlQuery, sqlValue)
     .then((response) => {
+      console.log(response.rows)
       res.send(response.rows);
     })
     .catch((error) => {
