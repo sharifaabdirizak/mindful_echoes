@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import journal_entry from './journal_entries.reducer';
+import journal_entry from './journal_entry.reducer';
 import previous_entries from './previous_entries.reducer';
 
 // rootReducer is the primary reducer for our entire project

@@ -14,7 +14,7 @@ function PreviousEntries() {
         dispatch({
             type: "SAGA/FETCH_PREVIOUS_ENTRIES",
           });
-    })
+    }, [])
     
 
 
