@@ -13,6 +13,7 @@ function JournalEntry() {
 
     return (
         <>
+         <h1>Journal Entry</h1>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 {/* <DemoContainer components={['DatePicker']}> */}
                     <DatePicker label="Basic date picker" />

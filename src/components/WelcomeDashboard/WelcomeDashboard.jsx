@@ -7,7 +7,7 @@ function WelcomeDashboard() {
 
     return (
         <>
-        <h1>hi</h1>
+        <h1>Welcome Dashboard</h1>
         <button onClick={() => {
             history.push('/dailyAffirmations');
           }}>
