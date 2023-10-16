@@ -8,10 +8,39 @@ import React from 'react';
 function AboutPage() {
   return (
     <div className="container">
-      <div>
-        <p>Imagine having a personal coach in your pocket, ready to help boost your motivation and confidence throughout the day. Mindful echos gives users a dose of positivity, designated to shape their mindset and improve overall happiness. Mindful echos provides daily uplifting affirmations, personalized goal journaling and sets the users on a path to success to positivity.</p>
+
+        
+           <div className="Special Thanks">
+          <h3>Special Thanks:</h3>
+          <ul>
+            <li>Thanks to Andrew, Matt, Dane, all of the staff at Prime Digital Academy</li>
+            <li>Jade Cohort</li>
+            <li>Mentors</li>
+            <li>Special thanks to all my family and friends</li>
+          </ul>
+        </div>
+
+        <section className="New Updates">
+          <h3>Update features that will be posted in the near future:</h3>
+          <ul>
+            <li>There will be a trendings column where users can interact with read new affirmation trends. </li>
+          </ul>
+        </section>
+           <section className="Technologies ">
+        <h3>Technologies Used:</h3>
+          <ul>
+            <li>React</li>
+            <li>Redux</li>
+            <li>Node</li>
+            <li>Sagas</li>
+            <li>Passport</li>
+            <li>Postico</li>
+            <li>PostgreSQL</li>
+            <li>Express</li>    
+          </ul>
+        </section>
       </div>
-    </div>
+    
   );
 }
 
