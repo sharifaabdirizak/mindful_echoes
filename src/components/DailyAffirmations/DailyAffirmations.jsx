@@ -17,9 +17,11 @@ function DailyAffirmations() {
       type: "SAGA/startEntry",
       payload: {
         daily_affirmation: event.target.value, 
-        user_id: user.id}
+        user_id: user.id,
+        history,
+      }
     });
-    history.push(`/journalSettings/`);
+    // history.push(`/journalSettings/`);
   };
 
 

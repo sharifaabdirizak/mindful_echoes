@@ -44,25 +44,26 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   // POST route code here
-  const daily_affirmation = req.body.daily_affirmation
-  const user_id = req.body.user_id
+  const daily_affirmation = req.body.daily_affirmation;
+  const user_id = req.body.user_id;
   const sqlQuery = `
     INSERT INTO "journal_entries"
         ("daily_affirmation", "user_id")
         VALUES
-        ($1, $2);
-  `
+        ($1, $2)
+    RETURNING id;`;
   const sqlValues = [daily_affirmation, user_id];
   pool.query(sqlQuery, sqlValues)
     .then((response) => {
-        res.sendStatus(201);
+      const new_id = response.rows[0].id; 
+      res.status(201).send({ id: new_id }); // Include id in the response
     })
     .catch((error) => {
-        console.log('error in /api/journal_entires POST', error);
-        res.sendStatus(500);
-    })
-
+      console.log('error in /api/journal_entries POST', error);
+      res.status(500);
+    });
 });
+
 
 router.delete('/:id', (req, res) => {
   const entry_to_delete = req.params.id;

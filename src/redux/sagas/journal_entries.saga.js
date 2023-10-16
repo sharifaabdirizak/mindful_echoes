@@ -3,21 +3,23 @@ import { takeEvery, put } from "redux-saga/effects";
 
 function* addJournalEntry(action) {
   try {
-    const daily_affirmation = action.payload.daily_affirmation;
-    const user_id = action.payload.user_id;
+    const { daily_affirmation, user_id, history } = action.payload; // Destructure payload
     console.log("affirmation:", daily_affirmation);
-    const journal_entry = yield axios({
-      method: "POST",
-      url: "/api/journal_entries",
-      data: {
-        daily_affirmation: daily_affirmation,
-        user_id: user_id,
-      },
+    const response = yield axios.post("/api/journal_entries", {
+      daily_affirmation: daily_affirmation,
+      user_id: user_id,
     });
+
+    // Extract the newId from the response
+    const new_id = response.data.id;
+
     yield put({
       type: "SAGA/FETCH_JOURNAL_ENTRY",
-      payload: journal_entry.data,
+      payload: response.data,
     });
+
+    // Use the history object to navigate to the new page with the newId
+    history.push(`/journalSettings/${new_id}`)
   } catch (error) {
     console.log("error in addJournalEntry", error);
   }
