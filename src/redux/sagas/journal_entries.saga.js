@@ -71,6 +71,24 @@ function* addJournalEntrySaga() {
   yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
   yield takeEvery('SAGA/DELETE_JOURNAL_ENTRY', deleteJournalEntry)
+  yield takeEvery("SAGA/UPDATE_CATEGORY", updateJournalCategory);
 }
+
+function* updateJournalCategory (){
+  try {
+    const category_to_update = action.payload 
+    const category = yield axios 
+    ({
+      method: 'put',
+      url: `/api/journal_entries/${category_to_update.id}`,
+      data: category_to_update.category 
+    })
+  } catch (error) {
+    console.log("error in update journal category", error);
+  }
+}
+
+
+
 
 export default addJournalEntrySaga;
