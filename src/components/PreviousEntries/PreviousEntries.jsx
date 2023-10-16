@@ -16,7 +16,13 @@ function PreviousEntries() {
           });
     }, [])
     
-
+const deleteButton = (id)=> {
+  console.log("deleted journal entry")
+  dispatch({
+      type: 'SAGA/DELETE_JOURNAL_ENTRY',
+      paylad: entires.id
+    });
+}
 
     return (
         <>
@@ -24,7 +30,10 @@ function PreviousEntries() {
         {previous_entries.map((entries) => (
         <p key={entries.id} className="entries">
           {entries.content}
-          </p>))}
+          <button onClick={()=>deleteButton(entries.id)}></button>
+          </p>
+          ))}
+
         </>
     )
 }

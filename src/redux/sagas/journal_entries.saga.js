@@ -49,10 +49,25 @@ function* fetchPreviousEntries() {
   }
 }
 
+function* deleteJournalEntry (action){
+  try{
+    const journal_id = yield axios({
+      method: "DELETE",
+      url: `/api/journal_entries/${action.payload}`,
+    });
+    yield put({
+      type: "SAGA/FETCH_PREVIOUS_ENTRIES"
+    });
+  } catch(error) {
+    console.log('error in delete journal entry', error);
+  }
+}
+
 
 function* addJournalEntrySaga() {
   yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
+  yield takeEvery('SAGA/DELETE_JOURNAL_ENTRY', deleteJournalEntry)
 }
 
 export default addJournalEntrySaga;
