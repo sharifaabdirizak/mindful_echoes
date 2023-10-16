@@ -9,7 +9,7 @@ function AboutPage() {
   return (
     <div className="container">
       <div>
-        <p>This about page is for anyone to read!</p>
+        <p>Imagine having a personal coach in your pocket, ready to help boost your motivation and confidence throughout the day. Mindful echos gives users a dose of positivity, designated to shape their mindset and improve overall happiness. Mindful echos provides daily uplifting affirmations, personalized goal journaling and sets the users on a path to success to positivity.</p>
       </div>
     </div>
   );

@@ -32,7 +32,6 @@ function PreviousEntries() {
         type: "SAGA/FETCH_PREVIOUS_ENTRIES",
       });
   }
-
     return (
         <>
         <h1>Previous Entries</h1>
