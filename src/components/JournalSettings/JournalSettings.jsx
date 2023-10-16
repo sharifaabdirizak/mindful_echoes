@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from '@mui/material/InputLabel';
@@ -9,6 +10,8 @@ import Button from '@mui/material/Button';
 function JournalSettings() {
   const history = useHistory();
 
+  // const journal_entry = useSelector(store => store.journal_entries.journal_entry);
+
   return (
     <>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -16,19 +19,18 @@ function JournalSettings() {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-        //   value={age}
-        //   onChange={handleChange}
           label="Affirmation Categories"
+          onChange={(event) => updateCategory()}
         >
-          <MenuItem >Confidence</MenuItem>
-          <MenuItem >Self-Esteem</MenuItem>
-          <MenuItem >Love</MenuItem>
-          <MenuItem >Graditude</MenuItem>
-          <MenuItem >Health</MenuItem>
-          <MenuItem >Exercise</MenuItem>
-          <MenuItem >Forgiveness</MenuItem>
-          <MenuItem >Relationship</MenuItem>
-          <MenuItem >Attitude</MenuItem>
+          <MenuItem value={'Confidence'}>Confidence</MenuItem>
+          <MenuItem value={'Self-Esteem'}>Self-Esteem</MenuItem>
+          <MenuItem value={'Love'}>Love</MenuItem>
+          <MenuItem value={'Gratitude'}>Graditude</MenuItem>
+          <MenuItem value={'Health'}>Health</MenuItem>
+          <MenuItem value={'Exercise'}>Exercise</MenuItem>
+          <MenuItem value={'Forgiveness'}>Forgiveness</MenuItem>
+          <MenuItem value={'Relationship'}>Relationship</MenuItem>
+          <MenuItem value={'Attitude'}>Attitude</MenuItem>
         </Select>
       </FormControl>
 
@@ -37,13 +39,11 @@ function JournalSettings() {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-        //   value={age}
-        //   onChange={handleChange}
           label="Journal Time"
         >
-          <MenuItem >1 minute </MenuItem>
-          <MenuItem >5 minutes</MenuItem>
-          <MenuItem >10 minutes </MenuItem>   
+          <MenuItem value={'1 minute'}>1 minute </MenuItem>
+          <MenuItem value={'5 minutes'}>5 minutes</MenuItem>
+          <MenuItem value={'10 minutes'}>10 minutes</MenuItem>  
         </Select>
       </FormControl>
       <Button variant="contained" 

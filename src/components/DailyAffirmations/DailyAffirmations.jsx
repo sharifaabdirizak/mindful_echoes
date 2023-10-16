@@ -1,11 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 
 function DailyAffirmations() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const params = useParams();
 
   const user = useSelector(store => store.user)
 
@@ -18,9 +19,11 @@ function DailyAffirmations() {
         daily_affirmation: event.target.value, 
         user_id: user.id}
     });
-    history.push("/journalSettings");
+    history.push(`/journalSettings/`);
   };
 
+
+  
   //created daily affirmation quotes/prompts.
   return (
     <>

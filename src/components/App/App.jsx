@@ -90,7 +90,7 @@ function App() {
 
           <ProtectedRoute
           exact
-          path="/journalSettings"
+          path="/journalSettings/:id"
           >
             <JournalSettings />
           </ProtectedRoute>
