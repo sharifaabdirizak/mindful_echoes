@@ -20,7 +20,7 @@ const deleteButton = (id)=> {
   console.log("deleted journal entry")
   dispatch({
       type: 'SAGA/DELETE_JOURNAL_ENTRY',
-      paylad: entires.id
+      paylad: id
     });
 }
 
@@ -30,7 +30,7 @@ const deleteButton = (id)=> {
         {previous_entries.map((entries) => (
         <p key={entries.id} className="entries">
           {entries.content}
-          <button onClick={()=>deleteButton(entries.id)}></button>
+          <button onClick={()=>deleteButton(entries.id)}>Delete</button>
           </p>
           ))}
 

@@ -64,4 +64,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 });
 
+
+
+router.delete ('/:id')
+
 module.exports = router;
