@@ -64,23 +64,23 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-
-
-router.delete ('/:id', (req, res) => {
-const entryToDelete = req.params.id
-const sqlQuery = `DELETE from journal_entries where id = $1;`; 
-const sqlValues = [entryToDelete] 
-pool.query(sqlQuery, sqlValues)
+router.delete('/:id', (req, res) => {
+  const entry_to_delete = req.params.id;
+  const sqlQuery =`
+    DELETE FROM "journal_entries"
+      WHERE "id" = $1;
+  `;
+  const sqlValue = [entry_to_delete];
+  pool.query(sqlQuery, sqlValue)
     .then((response) => {
-      console.log('was able to delete')
-        res.sendStatus(201);
+      console.log('deleted journal entry with id', entry_to_delete);
+      res.sendStatus
     })
     .catch((error) => {
-        console.log('error in /api/journal_entires DELETE', error);
-        res.sendStatus(500);
-    })
-
-});
+      console.log('error in /api/journal_entires DELETE', error);
+      res.sendStatus(500);
+  })
+})
 
 
 module.exports = router;

@@ -16,13 +16,22 @@ function PreviousEntries() {
           });
     }, [])
     
-const deleteButton = (id)=> {
-  console.log("deleted journal entry")
-  dispatch({
-      type: 'SAGA/DELETE_JOURNAL_ENTRY',
-      paylad: id
-    });
-}
+    useEffect(() => {
+      dispatch({
+          type: "SAGA/FETCH_PREVIOUS_ENTRIES",
+        });
+  }, [])
+
+ const deleteButton = (id) => {
+      console.log('deleted a journal entry');
+      dispatch({
+          type: 'SAGA/DELETE_JOURNAL_ENTRY',
+          payload: id
+      })
+      dispatch({
+        type: "SAGA/FETCH_PREVIOUS_ENTRIES",
+      });
+  }
 
     return (
         <>

@@ -49,17 +49,18 @@ function* fetchPreviousEntries() {
   }
 }
 
-function* deleteJournalEntry (action){
-  try{
+function* deleteJournalEntry(action) {
+  try {
+    const entry_to_delete = action.payload
     const journal_id = yield axios({
-      method: "DELETE",
-      url: `/api/journal_entries/${action.payload}`,
-    });
-    yield put({
-      type: "SAGA/FETCH_PREVIOUS_ENTRIES"
-    });
-  } catch(error) {
-    console.log('error in delete journal entry', error);
+      method: 'delete',
+      url: `/api/journal_entries/${entry_to_delete}`
+    })
+    yield put ({
+      type:"SAGA/FETCH_PREVIOUS_ENTRIES",
+    })
+  } catch (error) {
+    console.log("error in deleteEntry", error);
   }
 }
 
