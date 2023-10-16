@@ -1,5 +1,5 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory, useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -9,8 +9,22 @@ import Button from '@mui/material/Button';
 
 function JournalSettings() {
   const history = useHistory();
+  const params = useParams();
+  const dispatch = useDispatch();
 
-  // const journal_entry = useSelector(store => store.journal_entries.journal_entry);
+  useEffect(() => {
+    }, [params.id])
+
+    const updateCategory = (event) => {
+      console.log('you are updating journal category', event.target.value);
+      dispatch({
+        type: 'SAGA/UPDATE_CATEGORY',
+        payload: {
+            id: params.id,
+            category: event.target.value
+        }
+      })
+    }
 
   return (
     <>
@@ -20,7 +34,8 @@ function JournalSettings() {
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           label="Affirmation Categories"
-          onChange={(event) => updateCategory()}
+          onChange={(event) => updateCategory(event)}
+
         >
           <MenuItem value={'Confidence'}>Confidence</MenuItem>
           <MenuItem value={'Self-Esteem'}>Self-Esteem</MenuItem>
