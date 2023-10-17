@@ -74,21 +74,19 @@ function* addJournalEntrySaga() {
   yield takeEvery("SAGA/UPDATE_CATEGORY", updateJournalCategory);
 }
 
-function* updateJournalCategory (){
+function* updateJournalCategory(action) {
   try {
-    const category_to_update = action.payload 
-    const category = yield axios 
-    ({
-      method: 'put',
-      url: `/api/journal_entries/${category_to_update.id}`,
-      data: category_to_update.category 
+    const journal_to_update = action.payload
+    const category = yield axios({
+      method: 'PUT',
+      url:`/api/journal_entries/${journal_to_update.id}`,
+      data:{
+        category: journal_to_update.category
+      }
     })
   } catch (error) {
-    console.log("error in update journal category", error);
+    console.log("error in updateJournalCategory", error)
   }
 }
-
-
-
 
 export default addJournalEntrySaga;

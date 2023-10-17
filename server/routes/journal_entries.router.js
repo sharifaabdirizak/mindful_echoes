@@ -64,7 +64,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-
 router.delete('/:id', (req, res) => {
   const entry_to_delete = req.params.id;
   const sqlQuery =`
@@ -82,6 +81,48 @@ router.delete('/:id', (req, res) => {
       res.sendStatus(500);
   })
 })
+
+router.put('/:id', (req, res) => {
+  const journal_to_update = req.params.id;
+  const new_category = req.body.category;
+  const sqlQuery = `
+    UPDATE "journal_entries"
+    SET "category" = $1
+    WHERE "id" = $2;
+  `;
+  const sqlValues = [new_category, journal_to_update];
+  pool.query(sqlQuery, sqlValues)
+    .then((response) => {
+      console.log('updated journal category with id', journal_to_update);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error in /api/journal_entires PUT', error);
+      res.sendStatus(500);
+    })
+})
+
+
+router.put('/:id', (req, res) => {
+  const journal_to_update = req.params.id;
+  const new_category = req.body.category;
+  const sqlQuery = `
+    UPDATE "journal_entries"
+    SET "category" = $1
+    WHERE "id" = $2;
+  `;
+  const sqlValues = [new_category, journal_to_update];
+  pool.query(sqlQuery, sqlValues)
+    .then((response) => {
+      console.log('updated journal category with id', journal_to_update);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error in /api/journal_entires PUT', error);
+      res.sendStatus(500);
+    })
+})
+
 
 
 module.exports = router;

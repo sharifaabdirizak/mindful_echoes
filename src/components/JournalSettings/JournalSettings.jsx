@@ -63,7 +63,7 @@ function JournalSettings() {
       </FormControl>
       <Button variant="contained" 
         onClick={() => {
-            history.push('/journalEntry');
+            history.push('/journalEntry/params.id');
           }}>
             Next
         </Button>

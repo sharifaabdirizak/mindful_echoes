@@ -1,4 +1,6 @@
 import React from 'react';
+import { useParams} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { DemoContainer } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -9,6 +11,13 @@ import Button from '@mui/material/Button';
 
 function JournalEntry() {
     const history = useHistory();
+  const params = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    }, [params.id])
+
+
 
 
     return (
