@@ -3,7 +3,7 @@ import { takeEvery, put } from "redux-saga/effects";
 
 function* addJournalEntry(action) {
   try {
-    const { daily_affirmation, user_id, history } = action.payload; // Destructure payload
+    const { daily_affirmation, user_id, history } = action.payload; 
     console.log("affirmation:", daily_affirmation);
     const response = yield axios.post("/api/journal_entries", {
       daily_affirmation: daily_affirmation,
@@ -18,8 +18,8 @@ function* addJournalEntry(action) {
       payload: response.data,
     });
 
-    // Use the history object to navigate to the new page with the newId
-    history.push(`/journalSettings/${new_id}`)
+
+    history.push(`/journalSettings/${new_id}`);
   } catch (error) {
     console.log("error in addJournalEntry", error);
   }
@@ -29,7 +29,7 @@ function* fetchJournalEntry(action) {
   try {
     const journal_entry = yield axios({
       method: "GET",
-      url: `/api/journal_entries/{action.id}`,
+      url: `/api/journal_entries/${action.id}`,
     });
   } catch (error) {
     console.log("error in fetchJournalEntry", error);
@@ -53,39 +53,66 @@ function* fetchPreviousEntries() {
 
 function* deleteJournalEntry(action) {
   try {
-    const entry_to_delete = action.payload
+    const entry_to_delete = action.payload;
     const journal_id = yield axios({
-      method: 'delete',
-      url: `/api/journal_entries/${entry_to_delete}`
-    })
-    yield put ({
-      type:"SAGA/FETCH_PREVIOUS_ENTRIES",
-    })
+      method: "delete",
+      url: `/api/journal_entries/${entry_to_delete}`,
+    });
+    yield put({
+      type: "SAGA/FETCH_PREVIOUS_ENTRIES",
+    });
   } catch (error) {
     console.log("error in deleteEntry", error);
   }
 }
 
-
 function* addJournalEntrySaga() {
   yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
-  yield takeEvery('SAGA/DELETE_JOURNAL_ENTRY', deleteJournalEntry)
+  yield takeEvery("SAGA/DELETE_JOURNAL_ENTRY", deleteJournalEntry);
   yield takeEvery("SAGA/UPDATE_CATEGORY", updateJournalCategory);
+  yield takeEvery("SAGA/UPDATE_CONTENT", updateJournalContent);
 }
 
 function* updateJournalCategory(action) {
   try {
-    const journal_to_update = action.payload
+    const journal_to_update = action.payload;
     const category = yield axios({
-      method: 'PUT',
-      url:`/api/journal_entries/${journal_to_update.id}`,
-      data:{
-        category: journal_to_update.category
-      }
-    })
+      method: "PUT",
+      url: `/api/journal_entries/${journal_to_update.id}`,
+      data: {
+        category: journal_to_update.category,
+      },
+    });
   } catch (error) {
-    console.log("error in updateJournalCategory", error)
+    console.log("error in updateJournalCategory", error);
+  }
+}
+
+function* updateJournalContent(action) {
+  try {
+    const journal_to_update = action.payload;
+    const response = yield axios({
+      method: "PUT",
+      url: `/api/journal_entries/${journal_to_update.id}`,
+      data: {
+        content: journal_to_update.content, 
+        date: journal_to_update.date, 
+      },
+    });
+    console.log("response", action);
+    console.log(response);
+    if (response.status === 200) {
+      
+      yield put({
+        type: "SAGA/CONTENT_UPDATED",
+        payload: journal_to_update,
+      });
+    } else {
+      console.log("Update failed with status:", response.status);
+    }
+  } catch (error) {
+    console.log("error in updateJournalContent", error);
   }
 }
 

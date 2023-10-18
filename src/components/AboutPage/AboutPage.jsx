@@ -13,7 +13,7 @@ function AboutPage() {
            <div className="Special Thanks">
           <h3>Special Thanks:</h3>
           <ul>
-            <li>Thanks to Andrew, Matt, Dane, all of the staff at Prime Digital Academy</li>
+            <li>Thanks to Andrew, Matt, Dane, all of the staff at Prime Digital Acedemy </li>
             <li>Jade Cohort</li>
             <li>Mentors</li>
             <li>Special thanks to all my family and friends</li>
