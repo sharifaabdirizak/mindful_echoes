@@ -70,22 +70,21 @@ function* addJournalEntrySaga() {
   yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
   yield takeEvery("SAGA/DELETE_JOURNAL_ENTRY", deleteJournalEntry);
-  yield takeEvery("SAGA/UPDATE_CATEGORY", updateJournalCategory);
+  yield takeEvery("SAGA/POST_JOURNAL_ENTRY", postJournalEntry);
   yield takeEvery("SAGA/UPDATE_CONTENT", updateJournalContent);
+  yield takeEvery("SAGA/FETCH_JOURNAL_ENTRY", fetchJournalEntry);
 }
 
-function* updateJournalCategory(action) {
+function* postJournalEntry(action) {
   try {
-    const journal_to_update = action.payload;
-    const category = yield axios({
-      method: "PUT",
-      url: `/api/journal_entries/${journal_to_update.id}`,
-      data: {
-        category: journal_to_update.category,
-      },
+    const journal_info = action.payload;
+     yield axios({
+      method: "POST",
+      url: `/api/journal_entries`,
+      data: journal_info,
     });
   } catch (error) {
-    console.log("error in updateJournalCategory", error);
+    console.log("error in postJournalEntry", error);
   }
 }
 
@@ -105,7 +104,7 @@ function* updateJournalContent(action) {
     if (response.status === 200) {
       
       yield put({
-        type: "SAGA/CONTENT_UPDATED",
+        type: "SAGA/UPDATE_CONTENT",
         payload: journal_to_update,
       });
     } else {

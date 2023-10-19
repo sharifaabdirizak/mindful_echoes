@@ -94,6 +94,9 @@ router.put("/:id", (req, res) => {
   const content = req.body.content;
   const date = req.body.date;
   console.log(content, date);
+  console.log('this is content', content);
+  console.log('this is date', date);
+  
 
   if (new_category) {
     const sqlQuery = `
@@ -123,6 +126,8 @@ router.put("/:id", (req, res) => {
       .query(sqlQuery, sqlValues)
       .then((response) => {
         console.log("updated journal category with id", journal_to_update);
+        console.log("this is content", content);
+
         res.sendStatus(201);
       })
       .catch((error) => {
@@ -139,6 +144,8 @@ router.put("/:id", (req, res) => {
       .query(sqlQuery2, sqlValues2)
       .then((response) => {
         console.log("updated journal category with id", journal_to_update);
+        console.log("this is date in sqlvalues2", date);
+
         res.sendStatus(201);
       })
       .catch((error) => {
@@ -148,26 +155,26 @@ router.put("/:id", (req, res) => {
   }
 });
 
-router.put("/api/journal_content/:id", (req, res) => {
-  const journalId = req.params.id;
-  const newContent = req.body.content;
+// router.put("/api/journal_content/:id", (req, res) => {
+//   const journalId = req.params.id;
+//   const newContent = req.body.content;
 
-  const sqlQuery = `
-    UPDATE "journal_entries"
-    SET "content" = $1
-    WHERE "id" = $2;
-  `;
-  const sqlValues = [newContent, journalId];
-  pool
-    .query(sqlQuery, sqlValues)
-    .then((response) => {
-      console.log("Updated journal content with id", journalId);
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log("Error in /api/journal_content PUT", error);
-      res.sendStatus(500);
-    });
-});
+//   const sqlQuery = `
+//     UPDATE "journal_entries"
+//     SET "content" = $1
+//     WHERE "id" = $2;
+//   `;
+//   const sqlValues = [newContent, journalId];
+//   pool
+//     .query(sqlQuery, sqlValues)
+//     .then((response) => {
+//       console.log("Updated journal content with id", journalId);
+//       res.sendStatus(201);
+//     })
+//     .catch((error) => {
+//       console.log("Error in /api/journal_content PUT", error);
+//       res.sendStatus(500);
+//     });
+// });
 
 module.exports = router;

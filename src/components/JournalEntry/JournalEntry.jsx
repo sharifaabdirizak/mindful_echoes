@@ -15,16 +15,18 @@ function JournalEntry() {
   const params = useParams();
   const dispatch = useDispatch();
   const [journalContent, setJournalContent] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null); // State for the selected date
+  const [selectedDate, setSelectedDate] = useState('January 1st'); // State for the selected date
 
   useEffect(() => {}, [params.id]);
 
   const updateContent = () => {
     console.log("you are updating journal category");
+    // console.log("d", selectedDate.$d)
+    console.log("time", selectedDate)
     dispatch({
-      type: "SAGA/UPDATE_CONTENT",
+      type: "SAGA/POST_JOURNAL_ENTRY",
       payload: {
-        id: params.id,
+        // id: params.id,
         content: journalContent,
         date: selectedDate, // Include the selected date
       },
@@ -38,14 +40,19 @@ function JournalEntry() {
   return (
     <>
       <h1>Journal Entry</h1>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
+      {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+        {/* <DatePicker
           label="Select Date"
           value={selectedDate}
           onChange={(date) => setSelectedDate(date)} 
-        />
-      </LocalizationProvider>
+        /> */}
 
+      {/* </LocalizationProvider> */}
+<input label="Select Date"
+          value={selectedDate}
+          type= "text"
+          onChange={(e) => setSelectedDate(e.target.value)} >
+</input>
       <TextField
         id="standard-multiline-static"
         label="Journal Entry"
