@@ -59,6 +59,9 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 
   const content = req.body.content;
   const date = req.body.date;
+  const daily_affirmation = req.body.daily_affirmation;
+  const category = req.body.category;
+  const user_id =req.user.id;
   
   const sqlQuery = `
     INSERT INTO "journal_entries"

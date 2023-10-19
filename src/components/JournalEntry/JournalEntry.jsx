@@ -19,7 +19,9 @@ function JournalEntry() {
   const [journalContent, setJournalContent] = useState("");
   const [selectedDate, setSelectedDate] = useState('January 1st'); // State for the selected date
 
-  const daily_affirmation = useSelector(store => store.journalEntry);
+  const daily_affirmation = useSelector(store => store.journal_entry.daily_affirmation);
+
+  const journal_category = useSelector(store => store.journal_category.category);
 
   useEffect(() => {}, [params.id]);
 
@@ -34,6 +36,7 @@ function JournalEntry() {
         content: journalContent,
         date: selectedDate,
         daily_affirmation: daily_affirmation,
+        category: journal_category
       },
     });
   };

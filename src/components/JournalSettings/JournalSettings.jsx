@@ -18,9 +18,8 @@ function JournalSettings() {
     const updateCategory = (event) => {
       console.log('you are updating journal category', event.target.value);
       dispatch({
-        type: 'SAGA/UPDATE_CATEGORY',
+        type: 'SET_CATEGORY',
         payload: {
-            id: params.id,
             category: event.target.value
         }
       })
@@ -63,7 +62,7 @@ function JournalSettings() {
       </FormControl>
       <Button variant="contained" 
         onClick={() => {
-            history.push('/journalEntry/params.id');
+            history.push('/journalEntry');
           }}>
             Next
         </Button>

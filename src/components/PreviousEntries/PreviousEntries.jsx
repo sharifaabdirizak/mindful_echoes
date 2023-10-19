@@ -32,10 +32,18 @@ function PreviousEntries() {
         <>
         <h1>Previous Entries</h1>
         {previous_entries.map((currentEntry) => (
-        <p key={currentEntry.id} className="entries">
-          {currentEntry.daily_affirmation}
+        <div key={currentEntry.id} className="entries">
+          <p>{currentEntry.daily_affirmation}</p>
+          <ul>{currentEntry.date}</ul>
+          <ul>{currentEntry.category}</ul>
+          <ul>
+          {currentEntry.content}
+          </ul>
+          
+
+
           <button onClick={()=>deleteButton(currentEntry.id)}>Delete</button>
-          </p>
+          </div>
           ))}
 
         </>

@@ -20,7 +20,7 @@ function DailyAffirmations() {
   
       }
     });
-    history.push(`/journalEntry`);
+    history.push(`/journalSettings`);
   };
 
 
