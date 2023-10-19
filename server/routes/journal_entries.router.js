@@ -48,15 +48,25 @@ router.get("/", rejectUnauthenticated, (req, res) => {
  */
 router.post("/", rejectUnauthenticated, (req, res) => {
   // POST route code here
-  const daily_affirmation = req.body.daily_affirmation;
-  const user_id = req.body.user_id;
+
+
+  // {
+   
+  //   content: journalContent,
+  //   date: selectedDate, 
+  // },
+
+
+  const content = req.body.content;
+  const date = req.body.date;
+  
   const sqlQuery = `
     INSERT INTO "journal_entries"
-        ("daily_affirmation", "user_id")
+        ("daily_affirmation", "content", "date", "category", "user_id")
         VALUES
-        ($1, $2)
+        ($1, $2, $3, $4, $5)
     RETURNING id;`;
-  const sqlValues = [daily_affirmation, user_id];
+  const sqlValues = [daily_affirmation, content, date, category, user_id];
   pool
     .query(sqlQuery, sqlValues)
     .then((response) => {

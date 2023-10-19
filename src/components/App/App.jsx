@@ -27,6 +27,7 @@ import JournalEntry from '../JournalEntry/JournalEntry';
 
 import './App.css';
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -97,7 +98,7 @@ function App() {
 
           <ProtectedRoute
             exact
-            path="/JournalEntry/:id"
+            path="/JournalEntry"
           >
             <JournalEntry />
             </ProtectedRoute>

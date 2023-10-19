@@ -1,29 +1,29 @@
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 
-function* addJournalEntry(action) {
-  try {
-    const { daily_affirmation, user_id, history } = action.payload; 
-    console.log("affirmation:", daily_affirmation);
-    const response = yield axios.post("/api/journal_entries", {
-      daily_affirmation: daily_affirmation,
-      user_id: user_id,
-    });
+// function* addJournalEntry(action) {
+//   try {
+//     const { daily_affirmation, user_id, history } = action.payload; 
+//     console.log("affirmation:", daily_affirmation);
+//     const response = yield axios.post("/api/journal_entries", {
+//       daily_affirmation: daily_affirmation,
+//       user_id: user_id,
+//     });
 
-    // Extract the newId from the response
-    const new_id = response.data.id;
+//     // Extract the newId from the response
+//     const new_id = response.data.id;
 
-    yield put({
-      type: "SAGA/FETCH_JOURNAL_ENTRY",
-      payload: response.data,
-    });
+//     yield put({
+//       type: "SAGA/FETCH_JOURNAL_ENTRY",
+//       payload: response.data,
+//     });
 
 
-    history.push(`/journalSettings/${new_id}`);
-  } catch (error) {
-    console.log("error in addJournalEntry", error);
-  }
-}
+//     history.push(`/journalSettings/${new_id}`);
+//   } catch (error) {
+//     console.log("error in addJournalEntry", error);
+//   }
+// }
 
 function* fetchJournalEntry(action) {
   try {
@@ -67,7 +67,7 @@ function* deleteJournalEntry(action) {
 }
 
 function* addJournalEntrySaga() {
-  yield takeEvery("SAGA/startEntry", addJournalEntry);
+  // yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
   yield takeEvery("SAGA/DELETE_JOURNAL_ENTRY", deleteJournalEntry);
   yield takeEvery("SAGA/POST_JOURNAL_ENTRY", postJournalEntry);

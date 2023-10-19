@@ -14,14 +14,13 @@ function DailyAffirmations() {
     event.preventDefault();
     // console.log(event.target.value)
     dispatch({
-      type: "SAGA/startEntry",
+      type: "SET_JOURNAL_ENTRY",
       payload: {
         daily_affirmation: event.target.value, 
-        user_id: user.id,
-        history,
+  
       }
     });
-    // history.push(`/journalSettings/`);
+    history.push(`/journalEntry`);
   };
 
 

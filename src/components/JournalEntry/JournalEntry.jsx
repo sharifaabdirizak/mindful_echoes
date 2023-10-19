@@ -9,6 +9,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useSelector } from "react-redux";
+
 
 function JournalEntry() {
   const history = useHistory();
@@ -16,6 +18,8 @@ function JournalEntry() {
   const dispatch = useDispatch();
   const [journalContent, setJournalContent] = useState("");
   const [selectedDate, setSelectedDate] = useState('January 1st'); // State for the selected date
+
+  const daily_affirmation = useSelector(store => store.journalEntry);
 
   useEffect(() => {}, [params.id]);
 
@@ -28,7 +32,8 @@ function JournalEntry() {
       payload: {
         // id: params.id,
         content: journalContent,
-        date: selectedDate, // Include the selected date
+        date: selectedDate,
+        daily_affirmation: daily_affirmation,
       },
     });
   };
