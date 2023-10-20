@@ -190,4 +190,60 @@ router.put("/:id", (req, res) => {
 //     });
 // });
 
+router.put("/:id", (req, res) => {
+  const journalId = req.params.id;
+  const newCategory = req.body.category;
+  const newContent = req.body.content;
+  const newDate = req.body.date;
+
+  // Define the base SQL query for updating a journal entry
+  let sqlQuery;
+  let sqlValues;
+
+  if (newCategory) {
+    // Update category
+    sqlQuery = `
+      UPDATE "journal_entries"
+      SET "category" = $1
+      WHERE "id" = $2;
+    `;
+    sqlValues = [newCategory, journalId];
+  } else if (newContent) {
+    // Update content
+    sqlQuery = `
+      UPDATE "journal_entries"
+      SET "content" = $1
+      WHERE "id" = $2;
+    `;
+    sqlValues = [newContent, journalId];
+  } else if (newDate) {
+    // Update date
+    sqlQuery = `
+      UPDATE "journal_entries"
+      SET "date" = $1
+      WHERE "id" = $2;
+    `;
+    sqlValues = [newDate, journalId];
+  }
+
+  // Check if an SQL query and values were defined (based on the update type)
+  if (sqlQuery && sqlValues) {
+    pool
+      .query(sqlQuery, sqlValues)
+      .then((response) => {
+        console.log("Updated journal entry with ID", journalId);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.error("Error in /api/journal_entries PUT", error);
+        res.sendStatus(500);
+      });
+  } else {
+    // If neither category, content, nor date is provided for update
+    res.status(400).json({ error: "Invalid update request" });
+  }
+});
+
+
+
 module.exports = router;
