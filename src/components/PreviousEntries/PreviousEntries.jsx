@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from 'react';
 
 
 function PreviousEntries() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [editingEntry, setEditingEntry] = useState();
+    
     const user = useSelector((store) => store.user);
     const previous_entries = useSelector((store)=> store.previous_entries)
 
@@ -66,10 +65,13 @@ function PreviousEntries() {
           <ul>
           {currentEntry.content}
           </ul>
-          
-
-          <button onClick={() => editButton(currentEntry)}>Edit</button>
           <button onClick={()=>deleteButton(currentEntry.id)}>Delete</button>
+          <button onClick={() => {
+         
+          history.push(`editEntry/${currentEntry.id}`);
+        }} >Edit</button>
+
+          
           </div>
           ))}
 

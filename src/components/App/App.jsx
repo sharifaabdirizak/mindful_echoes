@@ -24,8 +24,10 @@ import DailyAffirmations from '../DailyAffirmations/DailyAffirmations';
 import JournalSettings from '../JournalSettings/JournalSettings';
 import PreviousEntries from '../PreviousEntries/PreviousEntries';
 import JournalEntry from '../JournalEntry/JournalEntry';
+import EditEntry from '../EditEntry/EditEntry';
 
 import './App.css';
+
 
 
 function App() {
@@ -109,6 +111,14 @@ function App() {
           >
             <PreviousEntries />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/EditEntry/:id"
+          >
+            <EditEntry/>
+          </ProtectedRoute>
+
           <Route
             exact
             path="/login"
