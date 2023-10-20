@@ -18,6 +18,7 @@ function JournalEntry() {
   const dispatch = useDispatch();
   const [journalContent, setJournalContent] = useState("");
   const [selectedDate, setSelectedDate] = useState('January 1st'); // State for the selected date
+  
 
   const daily_affirmation = useSelector(store => store.journal_entry.daily_affirmation);
 
@@ -45,6 +46,13 @@ function JournalEntry() {
     setJournalContent(e.target.value);
   };
 
+
+  const handleHover = () => {
+    setJournalContent('I had a great day!');
+  };
+
+
+
   return (
     <>
       <h1>Journal Entry</h1>
@@ -69,7 +77,8 @@ function JournalEntry() {
         value={journalContent}
         onChange={updateJournalContent}
         placeholder="Start here"
-      />
+        onMouseEnter={handleHover}></TextField>
+      
 
       <Button
         variant="contained"
