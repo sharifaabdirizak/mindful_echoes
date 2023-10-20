@@ -33,7 +33,7 @@ function PreviousEntries() {
   }
   
 
-
+//edit button
   const editButton = (entry) => {
     setEditingEntry(entry);
   };
