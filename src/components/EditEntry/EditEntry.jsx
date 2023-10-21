@@ -3,94 +3,74 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { DemoContainer } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
-
 
 function EditEntry() {
   const history = useHistory();
   const params = useParams();
   const dispatch = useDispatch();
-  const [editentry, setEditEntry] = useState("");
-  const [editDate, setEditDate] = useState('January 1st'); // State for the selected date
-  
+ 
+  const edit_entry = useSelector(store => store.edit_entry);
 
-  const daily_affirmation = useSelector(store => store.journal_entry.daily_affirmation);
+  useEffect(() => {
+    dispatch({
+      type: 'SAGA/FETCH_EDIT_ENTRY',
+      payload: params.id
+    })
+  }, [params.id]);
 
-  const journal_category = useSelector(store => store.journal_category.category);
+  const update_journal_content = (event) => {
+    dispatch({
+      type: 'SET_JOURNAL_CONTENT',
+      payload: event.target.value
+    })
+  }
 
-  useEffect(() => {}, [params.id]);
-
-//   const updateContent = () => {
-//     console.log("you are updating journal category");
-//     // console.log("d", selectedDate.$d)
-//     console.log("time", selectedDate)
-//     dispatch({
-//       type: "SAGA/POST_JOURNAL_ENTRY",
-//       payload: {
-//         // id: params.id,
-//         content: journalContent,
-//         date: selectedDate,
-//         daily_affirmation: daily_affirmation,
-//         category: journal_category
-//       },
-//     });
-//   };
-
-  const updateJournalContent = (e) => {
-    setJournalContent(e.target.value);
-  };
-
-
-  const handleHover = () => {
-    setJournalContent('I had a great day!');
-  };
-
+  const submit_updated_journal_content = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: "SAGA/UPDATE_JOURNAL_CONTENT",
+      payload: {
+        id: params.id,
+        content: edit_entry.content
+      }
+    })
+    console.log('updated content', edit_entry.content)
+    history.push('/previousEntries');
+  }
 
 
   return (
     <>
       <h1>Journal Entry</h1>
-      {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
-        {/* <DatePicker
-          label="Select Date"
-          value={selectedDate}
-          onChange={(date) => setSelectedDate(date)} 
-        /> */}
+      <form>
+      <input label="Select Date"
+        value={edit_entry.date}
+        type= "text"
+      >
+      </input>
 
-      {/* </LocalizationProvider> */}
-<input label="Select Date"
-          value={selectedDate}
-          type= "text"
-          onChange={(e) => setSelectedDate(e.target.value)} >
-</input>
       <TextField
         id="standard-multiline-static"
         label="Journal Entry"
         multiline
         rows={4}
-        value={journalContent}
-        onChange={updateJournalContent}
-        placeholder="Start here"
-        onMouseEnter={handleHover}></TextField>
+        value={edit_entry.content || ''}
+        onChange={update_journal_content}
+      >
+      </TextField>
+    
       
-
       <Button
         variant="contained"
-        onClick={() => {
-          history.push("/previousEntries");
-        }}
+        onClick={submit_updated_journal_content}
       >
         Next
       </Button>
 
-
-      <button onClick={() => editButton(currentEntry)}>Edit</button>
+      </form>
 
     </>
   );

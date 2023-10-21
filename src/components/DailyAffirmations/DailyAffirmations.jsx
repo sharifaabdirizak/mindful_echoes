@@ -28,7 +28,11 @@ function DailyAffirmations() {
   //created daily affirmation quotes/prompts.
   return (
     <>
+    
       <h1>Daily affirmations</h1>
+ <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+ </div>
 
       <Button
         onClick={(event) => {
@@ -36,6 +40,7 @@ function DailyAffirmations() {
         }}
         value={"I am allowed to feel good."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I am allowed to feel good.
       </Button>
@@ -45,6 +50,7 @@ function DailyAffirmations() {
         }}
         value={"I am growing and I am going at my own pace."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I am growing and I am going at my own pace.
       </Button>
@@ -54,6 +60,7 @@ function DailyAffirmations() {
         }}
         value={"I can be soft in my heart and firm in my boundaries."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I can be soft in my heart and firm in my boundaries.
       </Button>
@@ -63,6 +70,7 @@ function DailyAffirmations() {
         }}
         value={"I am open to healing."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I am open to healing.
       </Button>
@@ -72,6 +80,7 @@ function DailyAffirmations() {
         }}
         value={"I am responsible for myself, and I start there."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I am responsible for myself, and I start there.
       </Button>
@@ -81,6 +90,7 @@ function DailyAffirmations() {
         }}
         value={"I deserve self respect and a clean space."}
         varient="text"
+        style={{ marginBottom: 20 }}
       >
         I deserve self respect and a clean space.
       </Button>
