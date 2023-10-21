@@ -1,29 +1,6 @@
 import axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 
-// function* addJournalEntry(action) {
-//   try {
-//     const { daily_affirmation, user_id, history } = action.payload; 
-//     console.log("affirmation:", daily_affirmation);
-//     const response = yield axios.post("/api/journal_entries", {
-//       daily_affirmation: daily_affirmation,
-//       user_id: user_id,
-//     });
-
-//     // Extract the newId from the response
-//     const new_id = response.data.id;
-
-//     yield put({
-//       type: "SAGA/FETCH_JOURNAL_ENTRY",
-//       payload: response.data,
-//     });
-
-
-//     history.push(`/journalSettings/${new_id}`);
-//   } catch (error) {
-//     console.log("error in addJournalEntry", error);
-//   }
-// }
 
 function* fetchJournalEntry(action) {
   try {
@@ -67,17 +44,18 @@ function* deleteJournalEntry(action) {
 }
 
 function* addJournalEntrySaga() {
-  // yield takeEvery("SAGA/startEntry", addJournalEntry);
   yield takeEvery("SAGA/FETCH_PREVIOUS_ENTRIES", fetchPreviousEntries);
   yield takeEvery("SAGA/DELETE_JOURNAL_ENTRY", deleteJournalEntry);
   yield takeEvery("SAGA/POST_JOURNAL_ENTRY", postJournalEntry);
-  yield takeEvery("SAGA/UPDATE_CONTENT", updateJournalContent);
   yield takeEvery("SAGA/FETCH_JOURNAL_ENTRY", fetchJournalEntry);
+  yield takeEvery("SAGA/FETCH_EDIT_ENTRY", fetchEditEntry);
+  yield takeEvery("SAGA/UPDATE_JOURNAL_CONTENT", submitUpddatedJournalContent);
 }
 
 function* postJournalEntry(action) {
   try {
     const journal_info = action.payload;
+    console.log('journal info', journal_info)
      yield axios({
       method: "POST",
       url: `/api/journal_entries`,
@@ -88,31 +66,38 @@ function* postJournalEntry(action) {
   }
 }
 
-function* updateJournalContent(action) {
+function* fetchEditEntry(action) {
   try {
-    const journal_to_update = action.payload;
+    const journal_id = action.payload
+    console.log('fetching entry no.', journal_id, 'to edit')
     const response = yield axios({
-      method: "PUT",
-      url: `/api/journal_entries/${journal_to_update.id}`,
-      data: {
-        content: journal_to_update.content, 
-        date: journal_to_update.date, 
-      },
-    });
-    console.log("response", action);
-    console.log(response);
-    if (response.status === 200) {
-      
-      yield put({
-        type: "SAGA/UPDATE_CONTENT",
-        payload: journal_to_update,
-      });
-    } else {
-      console.log("Update failed with status:", response.status);
-    }
+      method: "GET",
+      url: `/api/journal_entries/${action.payload}`
+    })
+    yield put({
+      type: "SET_ENTRY_TO_EDIT",
+      payload: response.data
+    })
   } catch (error) {
-    console.log("error in updateJournalContent", error);
+    console.log("error in fetchEditEntry", error);
   }
 }
+
+function* submitUpddatedJournalContent(action) {
+  try {
+    const journal_id = action.payload.id;
+    const updated_content = action.payload.content;
+    const response = yield axios({
+      method: 'PUT',
+      url: `/api/journal_entries/${journal_id}`,
+      data: {
+        content: updated_content
+      }
+    })
+  } catch (error) {
+    console.log('error in submitUpdatedJournalContent', error);
+  }
+}
+
 
 export default addJournalEntrySaga;
