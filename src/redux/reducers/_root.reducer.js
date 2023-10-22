@@ -4,6 +4,7 @@ import user from './user.reducer';
 import journal_entry from './journal_entry.reducer';
 import previous_entries from './previous_entries.reducer';
 import journal_category from './journal_category.reducer';
+import edit_entry from './edit_entry.reducer';
 
 
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
   journal_entry,
   previous_entries,
   journal_category,
-  
+  edit_entry,
 });
 
 export default rootReducer;
