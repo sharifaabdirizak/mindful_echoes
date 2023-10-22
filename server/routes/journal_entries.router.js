@@ -5,23 +5,10 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
+
 /**
  * GET route template
  */
-router.get("/:id", (req, res) => {
-  // GET route code here
-  const sqlQuery = `SELECT * from journal_entries`;
-  pool
-    .query(sqlQuery)
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.log("error: get all the journal entries", error);
-      //add query to get all the journal entries
-      res.sendStatus(500);
-    });
-});
 
 router.get("/", rejectUnauthenticated, (req, res) => {
   console.log("seeing previous journal entries");
@@ -39,6 +26,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     })
     .catch((error) => {
       console.log("error in /api/journal_entires GET", error);
+        //add query to get all the journal entries
       res.sendStatus(500);
     });
 });
@@ -101,148 +89,50 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
-  const journal_to_update = req.params.id;
-  const new_category = req.body.category;
-  const content = req.body.content;
-  const date = req.body.date;
-  console.log(content, date);
-  console.log('this is content', content);
-  console.log('this is date', date);
-  
 
-  if (new_category) {
-    const sqlQuery = `
-    UPDATE "journal_entries"
-    SET "category" = $1
-    WHERE "id" = $2;
-  `;
-    const sqlValues = [new_category, journal_to_update];
-    pool
-      .query(sqlQuery, sqlValues)
-      .then((response) => {
-        console.log("updated journal category with id", journal_to_update);
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        console.log("error in /api/journal_entires PUT", error);
-        res.sendStatus(500);
-      });
-  } else if (content) {
-    const sqlQuery = `
-    UPDATE "journal_entries"
-    SET "content" = $1
-    WHERE "id" = $2;
-  `;
-    const sqlValues = [content, journal_to_update];
-    pool
-      .query(sqlQuery, sqlValues)
-      .then((response) => {
-        console.log("updated journal category with id", journal_to_update);
-        console.log("this is content", content);
 
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        console.log("error in /api/journal_entires PUT", error);
-        res.sendStatus(500);
-      });
-    const sqlQuery2 = `
-    UPDATE "journal_entries"
-    SET "date" = $1
-    WHERE "id" = $2;
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  console.log('journal entry we are editing:', req.params);  
+  const current_user = req.user.id;
+  const journal_id = req.params.id;
+  const sqlQuery = `
+    SELECT * FROM "journal_entries"
+      WHERE "user_id" = $1
+      AND "id" = $2;
   `;
-    const sqlValues2 = [date, journal_to_update];
-    pool
-      .query(sqlQuery2, sqlValues2)
-      .then((response) => {
-        console.log("updated journal category with id", journal_to_update);
-        console.log("this is date in sqlvalues2", date);
-
-        res.sendStatus(201);
-      })
-      .catch((error) => {
-        console.log("error in /api/journal_entires PUT", error);
-        res.sendStatus(500);
-      });
-  }
+  const sqlValues = [current_user, journal_id];
+  pool.query(sqlQuery, sqlValues)
+    .then((response) => {
+      console.log('here is the journal entry you requested:', response.rows[0]);
+      res.send(response.rows[0]);
+    })
+    .catch((error) => {
+      console.log('error in /api/journal_entries/:id GET', error);
+      res.sendStatus(500);
+    })
 });
 
-// router.put("/api/journal_content/:id", (req, res) => {
-//   const journalId = req.params.id;
-//   const newContent = req.body.content;
-
-//   const sqlQuery = `
-//     UPDATE "journal_entries"
-//     SET "content" = $1
-//     WHERE "id" = $2;
-//   `;
-//   const sqlValues = [newContent, journalId];
-//   pool
-//     .query(sqlQuery, sqlValues)
-//     .then((response) => {
-//       console.log("Updated journal content with id", journalId);
-//       res.sendStatus(201);
-//     })
-//     .catch((error) => {
-//       console.log("Error in /api/journal_content PUT", error);
-//       res.sendStatus(500);
-//     });
-// });
-
-router.put("/:id", (req, res) => {
-  const journalId = req.params.id;
-  const newCategory = req.body.category;
-  const newContent = req.body.content;
-  const newDate = req.body.date;
-
-  // Define the base SQL query for updating a journal entry
-  let sqlQuery;
-  let sqlValues;
-
-  if (newCategory) {
-    // Update category
-    sqlQuery = `
-      UPDATE "journal_entries"
-      SET "category" = $1
-      WHERE "id" = $2;
-    `;
-    sqlValues = [newCategory, journalId];
-  } else if (newContent) {
-    // Update content
-    sqlQuery = `
-      UPDATE "journal_entries"
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  console.log('updating journal content with id no.', req.params.id);
+  const journal_id = req.params.id;
+  const updated_content = req.body.content;
+  const current_user = req.user.id;
+  const sqlQuery = `
+    UPDATE "journal_entries"
       SET "content" = $1
-      WHERE "id" = $2;
-    `;
-    sqlValues = [newContent, journalId];
-  } else if (newDate) {
-    // Update date
-    sqlQuery = `
-      UPDATE "journal_entries"
-      SET "date" = $1
-      WHERE "id" = $2;
-    `;
-    sqlValues = [newDate, journalId];
-  }
-
-  // Check if an SQL query and values were defined (based on the update type)
-  if (sqlQuery && sqlValues) {
-    pool
-      .query(sqlQuery, sqlValues)
-      .then((response) => {
-        console.log("Updated journal entry with ID", journalId);
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        console.error("Error in /api/journal_entries PUT", error);
-        res.sendStatus(500);
-      });
-  } else {
-    // If neither category, content, nor date is provided for update
-    res.status(400).json({ error: "Invalid update request" });
-  }
-});
+      WHERE "id" = $2 AND "user_id" = $3;
+  `;
+  const sqlValues = [updated_content, journal_id, current_user];
+  pool.query(sqlQuery, sqlValues)
+  .then((response) => {
+    console.log('updated journal entry content');
+    res.sendStatus(201);
+  })
+  .catch((error) => {
+    console.log('error in /api/journal_entries/:id PUT', error);
+    res.sendStatus(500);
+  })
+})
 
 
 
