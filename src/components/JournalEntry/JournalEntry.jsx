@@ -48,6 +48,7 @@ function JournalEntry() {
     setJournalContent("I had a great day!");
   };
 
+
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <h1>Journal Entry</h1>

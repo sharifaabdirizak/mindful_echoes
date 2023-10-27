@@ -23,7 +23,7 @@ function AboutPage() {
         <section className="New Updates">
           <h3>Update features that will be posted in the near future:</h3>
           <ul>
-            <li>There will be a trendings column where users can interact with read new affirmation trends. </li>
+            <li>There will be a trendings column where users can interact with and read new affirmation trends. </li>
           </ul>
         </section>
            <section className="Technologies ">
